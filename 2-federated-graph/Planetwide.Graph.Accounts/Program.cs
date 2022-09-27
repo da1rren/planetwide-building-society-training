@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Planetwide.Graph.Accounts;
 
-namespace Planetwide.Graph.Accounts
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>();
+
+var app = builder.Build();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    endpoints.MapGraphQL();
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
+app.Run();

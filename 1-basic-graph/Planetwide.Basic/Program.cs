@@ -6,11 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>();
+    .AddQueryType<QueryRoot>()
+    .AddMutationType<MutationRoot>()
+    .AddSubscriptionType<SubscriptionRoot>()
+    .AddInMemorySubscriptions();
 
 var app = builder.Build();
 
 app.UseRouting();
+
+app.UseWebSockets();
 
 app.UseEndpoints(endpoints =>
 {

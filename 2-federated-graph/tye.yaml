@@ -1,0 +1,23 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: planetwide
+
+services:
+- name: planetwide-gateway
+  project: Planetwide.Graph.Gateway/Planetwide.Graph.Gateway.csproj
+
+- name: planetwide-members-api
+  project: Planetwide.Graph.Members/Planetwide.Graph.Members.csproj
+
+- name: planetwide-accounts-api
+  project: Planetwide.Graph.Accounts/Planetwide.Graph.Accounts.csproj
+
+- name: redis
+  image: redis
+  bindings:
+  - port: 6379
+    connectionString: "${host}:${port},abortConnect=false" 
