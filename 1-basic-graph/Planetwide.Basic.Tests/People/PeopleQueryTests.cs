@@ -18,11 +18,36 @@ public class PeopleQueryTests : IClassFixture<WebServerFixture>
     [Fact]
     public async Task Ensure_Get_Person_Returns_Person()
     {
-        // The web app factory should be extracted to a fixture 
-
         var request = await Client.PostAsJsonAsync("/graphql", new
         {
-            query = @"{ people{ id name } }"
+            query = @"{ people{ name } }"
+        });
+
+        var response = await request.Content.ReadAsStringAsync();
+        request.EnsureSuccessStatusCode();
+        Snapshot.Match(response);
+    }
+
+    [Fact]
+    public async Task Ensure_Get_Cars_Returns_Cars()
+    {
+        var request = await Client.PostAsJsonAsync("/graphql", new
+        {
+            query = @"
+{
+  cars{
+    model
+
+    ... on EfficientCar {
+      maxRange
+    }
+
+    ... on FastCar {
+      maxKph
+    }
+  }
+}           
+            "
         });
 
         var response = await request.Content.ReadAsStringAsync();

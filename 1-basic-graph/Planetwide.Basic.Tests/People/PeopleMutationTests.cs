@@ -25,9 +25,8 @@ public class MutationQueryTests : IClassFixture<WebServerFixture>
             query = @"
 mutation addPerson{
   addPerson(name: ""Darren"") {
-    id
     name
-  }
+  } 
 }"
         });
 

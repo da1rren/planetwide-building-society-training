@@ -9,6 +9,8 @@ builder.Services
     .AddQueryType<QueryRoot>()
     .AddMutationType<MutationRoot>()
     .AddSubscriptionType<SubscriptionRoot>()
+    .AddType<FastCar>()
+    .AddType<EfficientCar>()
     .AddInMemorySubscriptions();
 
 var app = builder.Build();
